@@ -1,8 +1,7 @@
-FROM ytnobody/debian-plack
+FROM ytnobody/base
 MAINTAINER ytnobody <ytnobody@gmail.com>
 
-RUN apt-get install mecab mecab-ipadic-utf8 libmecab-dev libstdc++6 libstdc++6-4.7-dev libjson-xs-perl libtext-mecab-perl -y
-RUN apt-get clean
+RUN apt-get update && apt-get install mecab mecab-ipadic-utf8 libmecab-dev libstdc++6 libstdc++6-4.7-dev libjson-xs-perl libtext-mecab-perl -y && apt-get clean
 
 RUN cpanm --auto-cleanup=0 -n Data::Recursive::Encode
 
