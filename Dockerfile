@@ -1,4 +1,4 @@
-FROM ytnobody/base
+FROM ytnobody/base:wheezy
 MAINTAINER ytnobody <ytnobody@gmail.com>
 
 RUN apt-get update && apt-get install mecab mecab-ipadic-utf8 libmecab-dev libstdc++6 libstdc++6-4.7-dev libjson-xs-perl libtext-mecab-perl -y && apt-get clean
