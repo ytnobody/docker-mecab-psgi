@@ -1,14 +1,23 @@
-FROM ytnobody/base:wheezy
-MAINTAINER ytnobody <ytnobody@gmail.com>
+FROM debian:bookworm-slim
 
-RUN apt-get update && apt-get install mecab mecab-ipadic-utf8 libmecab-dev libstdc++6 libstdc++6-4.7-dev libjson-xs-perl libtext-mecab-perl -y && apt-get clean
+RUN apt-get update && apt-get install perl curl make gcc git libplack-perl -y && apt-get clean
+RUN curl -L http://xrl.us/cpanm > /usr/bin/cpanm && chmod +x /usr/bin/cpanm
+RUN rm -f /etc/localtime && ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
-RUN cpanm --auto-cleanup=0 -n Data::Recursive::Encode
+RUN apt-get update
+RUN apt-get install build-essential mecab mecab-ipadic-utf8 libmecab-dev -y
+RUN apt-get clean
 
 RUN mkdir /app
-ADD app.psgi /app/app.psgi
 
-EXPOSE 7654
+COPY app.psgi /app/app.psgi
+COPY cpanfile /app/cpanfile
 
 WORKDIR /app
-ENTRYPOINT ["plackup", "-p", "7654"]
+RUN cpanm -n --installdeps .
+
+ARG PORT=5000
+
+EXPOSE ${PORT}
+
+ENTRYPOINT plackup -p ${PORT} app.psgi

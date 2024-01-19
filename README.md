@@ -4,7 +4,7 @@ MeCab API Server on PSGI + Docker
 
 ## SYNOPSIS
 
-    $ sudo docker run -p 7654:7654 -d ytnobody/mecab-psgi
+    $ make build run
 
 ## API [GET /]
 
@@ -18,7 +18,7 @@ Parse specified text and return thair nodes in JSON response.
 
 request 
 
-    http://localhost:7654/?text=%E3%81%99%E3%82%82%E3%82%82%E3%82%82%E3%82%82%E3%82%82%E3%82%82%E3%82%82%E3%82%82%E3%81%AE%E3%81%86%E3%81%A1
+    http://localhost:5000/?text=%E3%81%99%E3%82%82%E3%82%82%E3%82%82%E3%82%82%E3%82%82%E3%82%82%E3%82%82%E3%82%82%E3%81%AE%E3%81%86%E3%81%A1
 
 response
 
